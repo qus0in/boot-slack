@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>자유채널 익명 발송기</title>
+</head>
+<body>
+    <h1>익명이 아니면 부끄럽다고?</h1>
+    <form id="slack">
+        <label>
+            텍스트 : <input id="slack-text" >
+        </label>
+        <button>발송</button>
+    </form>
+    <script>
+        const slackForm = document.querySelector('#slack');
+        const slackText = document.querySelector('#slack-text');
+        slackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = slackText.value;
+            fetch('/slack', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: text
+                })
+            })
+        })
+    </script>
+</body>
+</html>
